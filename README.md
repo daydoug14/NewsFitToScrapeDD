@@ -1,3 +1,8 @@
+Deployed on Heroku:
+    https://newsfittoscrape.herokuapp.com/ 
+
+
+
 # NewsFitToScrapeDD
 All The Good News
 

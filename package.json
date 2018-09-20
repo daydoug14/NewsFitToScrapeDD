@@ -19,6 +19,7 @@
   "homepage": "https://github.com/daydoug14/NewsFitToScrapeDD#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "balanced-match": "^1.0.0",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.3",

@@ -43,18 +43,25 @@ app.set("view engine", "handlebars");
 // Database configuration with mongoose
 
 mongoose.connect("mongodb://localhost/week18Populater1", { useNewUrlParser: true });
+/////////////////////////////////////////////
 var db = mongoose.connection;
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
+/////////////////////////////////////////////////////
 // Show any mongoose errors
 db.on("error", function(error) {
   console.log("Mongoose Error: ", error);
 });
 
+
 // Once logged in to the db through mongoose, log a success message
 db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
-
 // Routes
 // ======
 
@@ -85,15 +92,15 @@ app.get("/scrape", function(req, res) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article").each(function(i, element) {
+    $("article.css-180b3ld").each(function(i, element) {
 
       // Save an empty result object
       var result = {};
 
       // Add the title and summary of every link, and save them as properties of the result object
-      result.title = $(this).children("h2").text();
-      result.summary = $(this).children(".summary").text();
-      result.link = $(this).children("h2").children("a").attr("href");
+      result.title = $(this).find("h2").text();
+      result.summary = $(this).find("h2").children("p").text();
+      result.link = $(this).find("h2").children("a").attr("href");
 
       // Using our Article model, create a new entry
       // This effectively passes the result object to the entry (and the title and link)

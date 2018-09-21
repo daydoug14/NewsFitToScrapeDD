@@ -97,8 +97,10 @@ app.get("/scrape", function(req, res) {
       // Save an empty result object
       var result = {};
 
-      // Add the title and summary of every link, and save them as properties of the result object
-      result.title = $(this).find("h2").text();
+     // Add the title and summary of every link, and save them as properties of the result object
+     //::::these next 3 lines seemed to be the most important in the whole code:::::
+     
+     result.title = $(this).find("h2").text();
      result.summary = $(this).find("p").text();
      result.link = $(this).find("a").attr("href");
 
